@@ -44,6 +44,21 @@ class Competence(models.Model):
         return self.title_of_competence
 
 
+class VacancyManager(models.Manager):
+    def create_vacancy(self,
+                       title_of_vacancy,
+                       description,
+                       city_of_vacancy,
+                       salary,
+                       web_site):
+        vacancy = self.create(title_of_vacancy=title_of_vacancy,
+                              description=description,
+                              city_of_vacancy=city_of_vacancy,
+                              salary=salary,
+                              web_site=web_site)
+        return vacancy
+
+
 class Vacancy(models.Model):
     title_of_vacancy = models.CharField('VacancyTitle', max_length=50)
     description = models.TextField('Description', max_length=400)
@@ -51,9 +66,14 @@ class Vacancy(models.Model):
     salary = models.IntegerField('Salary')
     web_site = models.CharField('WebSite', max_length=20)
 
+    objects = VacancyManager()
+
     class Meta:
         verbose_name = "Вакансия"
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
         return self.title_of_vacancy
+
+
+
