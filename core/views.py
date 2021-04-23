@@ -20,7 +20,10 @@ def search_results(request):
     q = request.GET.get('q')
     add_list = get_vac(q)
     for vacancy_dict in add_list:
-        vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
+        if Vacancy.objects.filter(title_of_vacancy=vacancy_dict['name']):
+            continue
+        else:
+            vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
                                                  vacancy_dict['city'],
                                                  vacancy_dict['salary'], vacancy_dict['webSite'])
     if q:
