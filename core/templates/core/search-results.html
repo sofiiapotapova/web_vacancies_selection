@@ -1,5 +1,10 @@
 {% extends 'core/index.html' %}
 
 {% block vac_list %}
-Empty
+    {% for el in vacs %}
+        <div class="alert alert-warning mt-2">
+                <h3>{{ el.title_of_vacancy }}</h3>
+                <p>{{ el.description }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -8,3 +8,5 @@ from .models import Vacancy
 admin.site.register(User)
 admin.site.register(Competence)
 admin.site.register(Vacancy)
+
+
