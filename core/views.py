@@ -11,3 +11,7 @@ def index(request):
 
 def users_page(request):
     return render(request, 'core/user-page.html')
+
+
+def search_results(request):
+    return render(request, 'core/search-results.html')
