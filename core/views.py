@@ -1,10 +1,11 @@
 from django.shortcuts import render
-
+from .models import Vacancy
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'core/index.html')
+    vacancies = Vacancy.objects.all()
+    return render(request, 'core/index.html', {'title': 'Main page of site', 'vacancies': vacancies})
 
 
 def users_page(request):

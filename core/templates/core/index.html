@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 
 {% block title %}
-Main page
+{{ title }}
 {% endblock %}
 
 {% block username %}
@@ -12,6 +12,18 @@ Username
 Empty
 {% endblock %}
 
-
+{% block vac_list %}
+    <h4>Recently searched</h4>
+    {% if vacancies %}
+        {% for el in vacancies %}
+            <div class="alert alert-warning mt-2">
+                <h3>{{ el.title_of_vacancy }}</h3>
+                <p>{{ el.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No results</p>
+    {% endif %}
+{% endblock %}
 
 
