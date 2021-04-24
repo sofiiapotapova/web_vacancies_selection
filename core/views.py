@@ -3,7 +3,7 @@ from .models import Vacancy
 from .documents import VacDocument
 from .getAPI import get_vac
 from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserRegisterForm
 from django.contrib import messages
 
 
@@ -42,7 +42,7 @@ def sign(request):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'You are registered!')
@@ -50,7 +50,7 @@ def register(request):
         else:
             messages.error(request, "Register Error")
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
 
     return render(request, 'core/register.html', {'form': form})
 
