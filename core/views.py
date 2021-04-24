@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Vacancy
 from .documents import VacDocument
 from .getAPI import get_vac
+from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -35,3 +38,47 @@ def search_results(request):
 
 def sign(request):
     return render(request, 'core/sign.html')
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You are registered!')
+            return redirect('login')
+        else:
+            messages.error(request, "Register Error")
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'core/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'core/login.html')
+
+
+def logout(request):
+    return render(request, 'core/logout.html')
+
+# class RegisterFormView(FormView):
+#     form_class = UserCreationForm
+#     success_url = "/user-page/"
+#
+#     template_name = 'register.html'
+#
+#     def form_valid(self, form):
+#         form.save()
+#         return super(RegisterFormView, self).form_valid(form)
+#
+#     def form_invalid(self, form):
+#         pass
+#
+#
+# class LoginFormView(FormView):
+#     pass
+#
+#
+# class LogoutFormView(FormView):
+#     pass
