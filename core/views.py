@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView
 from .forms import UserRegisterForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from .forms import CompetenceForm
 
 
 # Create your views here.
@@ -17,7 +18,12 @@ def index(request):
 
 
 def users_page(request):
-    return render(request, 'core/user-page.html')
+    if request.method == 'POST':
+        pass
+    else:
+        form = CompetenceForm()
+
+    return render(request, 'core/user-page.html', {'form': form})
 
 
 def search_results(request):

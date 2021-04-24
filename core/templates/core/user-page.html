@@ -4,7 +4,17 @@
 User info
 {% endblock %}
 
-{% block content %}
-    <h4>User configurations</h4>
+{% block title_vac %}
+Add Competence For
+{% endblock %}
+
+{% block vac_list %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+
 {% endblock %}
 
