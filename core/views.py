@@ -31,3 +31,7 @@ def search_results(request):
     else:
         vacs = ''
     return render(request, 'core/search-results.html', {'vacs': vacs})
+
+
+def sign(request):
+    return render(request, 'core/sign.html')

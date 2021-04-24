@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Authentication
+{% endblock %}
+
+{% block vac_list %}
+    <h5>Type your info</h5>
+    <form method="post">
+        <input type="text" placeholder="Login" class="form-control"><br>
+        <input type="text" placeholder="Password" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Sign in</button>
+    </form>
+{% endblock %}
