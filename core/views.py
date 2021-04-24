@@ -3,8 +3,9 @@ from .models import Vacancy
 from .documents import VacDocument
 from .getAPI import get_vac
 from django.views.generic.edit import FormView
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserLoginForm
 from django.contrib import messages
+from django.contrib.auth import login, logout
 
 
 # Create your views here.
@@ -55,11 +56,20 @@ def register(request):
     return render(request, 'core/register.html', {'form': form})
 
 
-def login(request):
-    return render(request, 'core/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+
+    return render(request, 'core/login.html', {'form': form})
 
 
-def logout(request):
+def user_logout(request):
     return render(request, 'core/logout.html')
 
 # class RegisterFormView(FormView):
