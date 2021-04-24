@@ -45,9 +45,10 @@ def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, 'You are registered!')
-            return redirect('login')
+            return redirect('home')
         else:
             messages.error(request, "Register Error")
     else:
@@ -70,25 +71,6 @@ def user_login(request):
 
 
 def user_logout(request):
-    return render(request, 'core/logout.html')
+    logout(request)
+    return redirect('login')
 
-# class RegisterFormView(FormView):
-#     form_class = UserCreationForm
-#     success_url = "/user-page/"
-#
-#     template_name = 'register.html'
-#
-#     def form_valid(self, form):
-#         form.save()
-#         return super(RegisterFormView, self).form_valid(form)
-#
-#     def form_invalid(self, form):
-#         pass
-#
-#
-# class LoginFormView(FormView):
-#     pass
-#
-#
-# class LogoutFormView(FormView):
-#     pass
