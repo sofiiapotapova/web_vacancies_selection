@@ -37,10 +37,6 @@ def search_results(request):
     return render(request, 'core/search-results.html', {'vacs': vacs})
 
 
-def sign(request):
-    return render(request, 'core/sign.html')
-
-
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
