@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from neomodel import StructuredNode, StringProperty, IntegerProperty, UniqueIdProperty, RelationshipTo
 
 
 # Create your models here.
@@ -63,5 +64,16 @@ class Vacancy(models.Model):
     def __str__(self):
         return self.title_of_vacancy
 
+
+class NeoCompetence(StructuredNode):
+    name = StringProperty(index=True, default='competence')
+
+
+class NeoVacancy(StructuredNode):
+    uid = UniqueIdProperty()
+    name = StringProperty(unique_index=True)
+
+    # Relations
+    neo_competence = RelationshipTo(NeoCompetence, "REQUIRES")
 
 
