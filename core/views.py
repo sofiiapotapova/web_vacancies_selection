@@ -34,8 +34,8 @@ def search_results(request):
             continue
         else:
             vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
-                                                 vacancy_dict['city'],
-                                                 vacancy_dict['salary'], vacancy_dict['webSite'])
+                                                     vacancy_dict['city'],
+                                                     vacancy_dict['salary'], vacancy_dict['webSite'])
     if q:
         vacs = VacDocument.search().query("match", title_of_vacancy=q)
     else:
@@ -75,4 +75,3 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
-
