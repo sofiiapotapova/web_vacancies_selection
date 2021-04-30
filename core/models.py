@@ -66,7 +66,7 @@ class Vacancy(models.Model):
 
 
 class NeoCompetence(StructuredNode):
-    name = StringProperty(index=True, default='competence')
+    name_competence = StringProperty(index=True, default='competence')
 
 
 class NeoVacancy(StructuredNode):
