@@ -9,5 +9,8 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('login', views.user_login, name='login'),
     path('logout', views.user_logout, name='logout'),
+    # path('neo-vacancy', views.vacancyDetails),
+    # path('neo-competence', views.competenceDetails),
+    # path('connectVaC', views.connectVaC),
 
 ]

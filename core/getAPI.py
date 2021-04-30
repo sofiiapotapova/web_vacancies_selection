@@ -16,7 +16,7 @@ def get_vac(query, city=None):
     for i in doc:
         result.append(
             {'name': i['name'], 'description': i['shortDescription'], 'city': i['cityName'], 'salary': i['salary'],
-             'webSite': 'Work.ua'})
+             'webSite': 'Rabota.ua'})
         # vacancy_dict['name'] = i['name']
         # vacancy_dict['description'] = i['shortDescription']
         # vacancy_dict['city'] = i['cityName']
