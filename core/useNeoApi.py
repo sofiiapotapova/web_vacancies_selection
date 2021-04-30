@@ -3,8 +3,6 @@ from neo4j import GraphDatabase
 uri = "neo4j://localhost:7687"
 driver = GraphDatabase.driver(uri, auth=("sofiiapotapova", "1234"))
 
-ok = {"vac_name": "QA test4", 'com_name': ["English", "Jira", "Soft skills"]}
-
 
 def create_vacancy(tx, vac_name):
     tx.run("CREATE (n:NeoVacancy {name: $name})", name=vac_name)
