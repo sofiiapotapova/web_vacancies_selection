@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Competence
+from django.forms import ModelForm
 
 
 class UserLoginForm(AuthenticationForm):
@@ -31,7 +32,14 @@ class UserRegisterForm(UserCreationForm):
         )
 
 
-class CompetenceForm(forms.Form):
+class CompetenceForm(ModelForm):
+    class Meta:
+        model = Competence
+        fields = (
+            'title_of_competence',
+            'level_of_competence'
+        )
+
     title_of_competence = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     level_of_competence = forms.ChoiceField(choices=Competence.LEVEL_OF_COMPETENCE)
-    # person = forms.CharField(User.objects.)
+    # person = forms.CharField()

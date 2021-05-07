@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Vacancy
+from .models import Vacancy, Competence
 from .documents import VacDocument
 from .getAPI import get_vac
 from .useNeoApi import graph_add
@@ -19,7 +19,13 @@ def index(request):
 
 def users_page(request):
     if request.method == 'POST':
-        pass
+        user = request.user
+        form = CompetenceForm(request.POST)
+
+        if form.is_valid():
+            form.instance.person = request.user
+            form.save()
+            # competence = Competence.objects.create_competence(user, form.title_of_competence, form.level_of_competence)
     else:
         form = CompetenceForm()
 
@@ -81,5 +87,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
 
 

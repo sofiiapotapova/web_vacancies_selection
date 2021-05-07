@@ -5,6 +5,16 @@ from neomodel import StructuredNode, StringProperty, IntegerProperty, UniqueIdPr
 
 # Create your models here.
 
+class CompetenceManager(models.Manager):
+    def create_competence(self,
+                          person,
+                          title_of_competence,
+                          level_of_competence):
+        competence = self.create(person = person,
+                                 title_of_competence = title_of_competence,
+                                 level_of_competence = level_of_competence)
+        return competence
+
 
 class Competence(models.Model):
     ONE = '1'
@@ -24,6 +34,8 @@ class Competence(models.Model):
     title_of_competence = models.CharField('CompetenceTitle', max_length=50)
     level_of_competence = models.CharField(max_length=2, choices=LEVEL_OF_COMPETENCE,
                                            default=ONE)
+
+    objects = CompetenceManager()
 
     class Meta:
         verbose_name = "Компетенция"
