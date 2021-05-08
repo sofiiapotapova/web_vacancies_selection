@@ -14,7 +14,8 @@ from .forms import CompetenceForm
 
 def index(request):
     vacancies = Vacancy.objects.all()
-    return render(request, 'core/index.html', {'title': 'Vacancies', 'vacancies': vacancies})
+    competencies = Competence.objects.all()
+    return render(request, 'core/index.html', {'title': 'Vacancies', 'vacancies': vacancies, 'competencies': competencies})
 
 
 def users_page(request):
@@ -25,6 +26,7 @@ def users_page(request):
         if form.is_valid():
             form.instance.person = request.user
             form.save()
+            # return redirect('user-page')
             # competence = Competence.objects.create_competence(user, form.title_of_competence, form.level_of_competence)
     else:
         form = CompetenceForm()
