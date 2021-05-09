@@ -57,7 +57,19 @@
               {% endif %}
             </h6>
             <ul class="nav flex-column mb-2">
-              {% block competence %}{% endblock %}
+              {% if competencies %}
+                {% for el in competencies %}
+                    {% if el.person == user %}
+                        <div class="alert alert-warning mt-2">
+                            <p>{{ el.title_of_competence }}</p>
+                            <p>{{ el.level_of_competence }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+              {% else %}
+                <p>No competence</p>
+              {% endif %}
+
             </ul>
           </div>
         </nav>
