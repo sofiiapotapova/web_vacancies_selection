@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Vacancy, Competence
 from .documents import VacDocument
 from .getAPI import get_vac
-from .useNeoApi import graph_add
+from .useNeoApi import graph_add, get_percent
 from .forms import UserRegisterForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -36,26 +36,44 @@ def users_page(request):
 
 
 def search_results(request):
+    competencies = Competence.objects.all()
+    comp_user = request.user
+    comp_list_filer = []
+    comp_num = 0
+    for competence in competencies:
+        if competence.person == comp_user:
+            comp_list_filer.append(competence.title_of_competence)
+            comp_num = comp_num + 1
+
     q = request.GET.get('q')
     add_list = get_vac(q)
     competence_list = []
     for vacancy_dict in add_list:
         if Vacancy.objects.filter(title_of_vacancy=vacancy_dict['name']):
+            percent = get_percent(comp_list_filer, comp_num, vacancy_dict['name'])
+            obj = Vacancy.objects.get(title_of_vacancy = vacancy_dict['name'])
+            obj.percent = percent
+            obj.save()
             continue
         else:
+            percent = 0
             vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
                                                      vacancy_dict['city'],
-                                                     vacancy_dict['salary'], vacancy_dict['webSite'])
+                                                     vacancy_dict['salary'], vacancy_dict['webSite'], percent)
             for i in vacancy_dict['description'].split(" "):
                 competence_list.append(i)
             graph_dict = {"vac_name": vacancy_dict['name'], "com_name": competence_list}
             graph_add(graph_dict)
+            percent = get_percent(comp_list_filer, comp_num, vacancy_dict['name'])
+            obj = Vacancy.objects.get(title_of_vacancy = vacancy_dict['name'])
+            obj.percent = percent
+            obj.save()
             competence_list = []
     if q:
         vacs = VacDocument.search().query("match", title_of_vacancy=q)
     else:
         vacs = ''
-    return render(request, 'core/search-results.html', {'vacs': vacs})
+    return render(request, 'core/search-results.html', {'vacs': vacs, 'competencies': competencies})
 
 
 def register(request):

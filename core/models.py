@@ -51,12 +51,14 @@ class VacancyManager(models.Manager):
                        description,
                        city_of_vacancy,
                        salary,
-                       web_site):
+                       web_site,
+                       percent):
         vacancy = self.create(title_of_vacancy=title_of_vacancy,
                               description=description,
                               city_of_vacancy=city_of_vacancy,
                               salary=salary,
-                              web_site=web_site)
+                              web_site=web_site,
+                              percent=percent)
         return vacancy
 
 
@@ -66,6 +68,7 @@ class Vacancy(models.Model):
     city_of_vacancy = models.CharField('City', max_length=25)
     salary = models.IntegerField('Salary')
     web_site = models.CharField('WebSite', max_length=20)
+    percent = models.IntegerField('Percentage', default=0)
 
     objects = VacancyManager()
 
