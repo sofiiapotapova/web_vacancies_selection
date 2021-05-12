@@ -1,4 +1,5 @@
 from neo4j import GraphDatabase
+from .models import Competence
 
 uri = "neo4j://localhost:7687"
 driver = GraphDatabase.driver(uri, auth=("sofiiapotapova", "1234"))
@@ -24,6 +25,8 @@ def graph_add(info):
         for competence in info['com_name']:
             # session.write_transaction(create_competence, competence)
             session.write_transaction(create_requirement, info["vac_name"], competence)
+
+
 
 
 driver.close()

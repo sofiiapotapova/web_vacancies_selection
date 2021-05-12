@@ -15,6 +15,7 @@ from .forms import CompetenceForm
 def index(request):
     vacancies = Vacancy.objects.all()
     competencies = Competence.objects.all()
+
     return render(request, 'core/index.html', {'title': 'Vacancies', 'vacancies': vacancies, 'competencies': competencies})
 
 
