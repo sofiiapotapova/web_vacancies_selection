@@ -1,2 +1,4 @@
 requests
 django==3.2
+elasticsearch-7.11.2
+neo4j
