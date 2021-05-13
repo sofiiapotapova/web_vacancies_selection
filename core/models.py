@@ -17,11 +17,11 @@ class CompetenceManager(models.Manager):
 
 
 class Competence(models.Model):
-    ONE = '1'
-    TWO = '2'
-    THREE = '3'
-    FOUR = '4'
-    FIVE = '5'
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
     LEVEL_OF_COMPETENCE = (
         (ONE, "begginer"),
         (TWO, "low"),
