@@ -9,10 +9,12 @@ class CompetenceManager(models.Manager):
     def create_competence(self,
                           person,
                           title_of_competence,
-                          level_of_competence):
+                          level_of_competence,
+                          num_of_stars):
         competence = self.create(person = person,
                                  title_of_competence = title_of_competence,
-                                 level_of_competence = level_of_competence)
+                                 level_of_competence = level_of_competence,
+                                 num_of_stars=int(level_of_competence))
         return competence
 
 
@@ -34,6 +36,7 @@ class Competence(models.Model):
     title_of_competence = models.CharField('CompetenceTitle', max_length=50)
     level_of_competence = models.CharField(max_length=2, choices=LEVEL_OF_COMPETENCE,
                                            default=ONE)
+    num_of_stars = models.IntegerField(default=1)
 
     objects = CompetenceManager()
 

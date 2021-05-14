@@ -20,6 +20,13 @@ def index(request):
 
 
 def users_page(request):
+    """!@brief Renders user page.
+
+    Gets the currently authenticated user to display and add his/her
+    competences. Displays the form for adding a competence.
+
+    @param form The form for adding the user's competence.
+    """
     if request.method == 'POST':
         user = request.user
         form = CompetenceForm(request.POST)
@@ -36,6 +43,17 @@ def users_page(request):
 
 
 def search_results(request):
+    """!@brief Render main page with search results.
+
+    Displays the main page with search results which are the vacancy
+    cards with all the required info.
+
+    @param add_list The list which gets the vacancies from other services.
+    @param competence_list The competence list
+    @param percent The percent parameters which shows whether the vacancy fits you.
+    @param vacs The param for Elasticsearch index creating
+    @param graph_dict The dictionary for Neo4j graph creation
+    """
     competencies = Competence.objects.all()
     comp_user = request.user
     comp_list_filer = []
