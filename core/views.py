@@ -89,6 +89,7 @@ def search_results(request):
             competence_list = []
     if q:
         vacs = VacDocument.search().query("match", title_of_vacancy=q)
+        vacs = vacs.sort({"percent": {"order": "desc"}})
     else:
         vacs = ''
     return render(request, 'core/search-results.html', {'vacs': vacs, 'competencies': competencies})
