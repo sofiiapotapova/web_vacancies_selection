@@ -14,5 +14,6 @@ class VacDocument(Document):
             'description',
             'city_of_vacancy',
             'salary',
-            'web_site'
+            'web_site',
+            'percent'
         ]
