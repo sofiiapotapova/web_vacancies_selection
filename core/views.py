@@ -16,7 +16,8 @@ def index(request):
     vacancies = Vacancy.objects.all()
     competencies = Competence.objects.all()
 
-    return render(request, 'core/index.html', {'title': 'Vacancies', 'vacancies': vacancies, 'competencies': competencies})
+    return render(request, 'core/index.html',
+                  {'title': 'Vacancies', 'vacancies': vacancies, 'competencies': competencies})
 
 
 def users_page(request):
@@ -69,21 +70,26 @@ def search_results(request):
     for vacancy_dict in add_list:
         if Vacancy.objects.filter(title_of_vacancy=vacancy_dict['name']):
             percent = get_percent(comp_list_filer, comp_num, vacancy_dict['name'])
-            obj = Vacancy.objects.get(title_of_vacancy = vacancy_dict['name'])
+            obj = Vacancy.objects.get(title_of_vacancy=vacancy_dict['name'])
             obj.percent = percent
             obj.save()
             continue
         else:
             percent = 0
-            vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
-                                                     vacancy_dict['city'],
-                                                     vacancy_dict['salary'], vacancy_dict['webSite'], percent)
+            if vacancy_dict['salary'] == 0:
+                vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
+                                                         vacancy_dict['city'],
+                                                         None, vacancy_dict['webSite'], percent)
+            else:
+                vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
+                                                         vacancy_dict['city'],
+                                                         vacancy_dict['salary'], vacancy_dict['webSite'], percent)
             for i in vacancy_dict['description'].split(" "):
                 competence_list.append(i)
             graph_dict = {"vac_name": vacancy_dict['name'], "com_name": competence_list}
             graph_add(graph_dict)
             percent = get_percent(comp_list_filer, comp_num, vacancy_dict['name'])
-            obj = Vacancy.objects.get(title_of_vacancy = vacancy_dict['name'])
+            obj = Vacancy.objects.get(title_of_vacancy=vacancy_dict['name'])
             obj.percent = percent
             obj.save()
             competence_list = []
@@ -127,6 +133,3 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
-
-
-

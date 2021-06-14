@@ -14,8 +14,12 @@
                     </div>
                 </div>
                 <div class="col-1 percent">
-                    <p>{{ el.percent }} %</p>
-                    <p>{{ el.salary }}</p>
+                    {% if el.percent %}
+                        <p>{{ el.percent }} %</p>
+                    {% endif %}
+                    {% if el.salary %}
+                        <p>{{ el.salary }} ₴</p>
+                    {% endif %}
                     <a href="#" class="text-muted">See more</a>
                 </div>
             </div>
