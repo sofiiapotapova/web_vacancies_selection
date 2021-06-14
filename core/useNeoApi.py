@@ -41,7 +41,7 @@ def get_percent(comp_list_filter, comp_num, vacancy):
         for comp in comp_list_filter:
             if comp[0] in vac_competencies:
                 coincidence = coincidence + 1
-                level = level + int(comp[1])
+                level = level + comp[1]
         if coincidence == 0:
             return None
         else:

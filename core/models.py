@@ -19,23 +19,23 @@ class CompetenceManager(models.Manager):
 
 
 class Competence(models.Model):
-    ONE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
-    FIVE = 5
+    # ONE = 1
+    # TWO = 2
+    # THREE = 3
+    # FOUR = 4
+    # FIVE = 5
     LEVEL_OF_COMPETENCE = (
-        (ONE, "begginer"),
-        (TWO, "low"),
-        (THREE, "middle"),
-        (FOUR, "upper"),
-        (FIVE, "pro")
+        (1, "begginer"),
+        (2, "low"),
+        (3, "middle"),
+        (4, "upper"),
+        (5, "pro")
     )
 
     person = models.ForeignKey(User, on_delete=models.RESTRICT)
     title_of_competence = models.CharField('CompetenceTitle', max_length=50)
-    level_of_competence = models.CharField(max_length=2, choices=LEVEL_OF_COMPETENCE,
-                                           default=ONE)
+    level_of_competence = models.IntegerField(choices=LEVEL_OF_COMPETENCE,
+                                           default=1)
     num_of_stars = models.IntegerField(default=1)
 
     objects = CompetenceManager()
