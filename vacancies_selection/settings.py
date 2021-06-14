@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'vacancies_selection.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL','bolt://sofiiapotapova:1234@localhost:7687')
+NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL','bolt://sofiiapotapova:1234@localhost:11003')
 
 # you are free to add this configurations
 NEOMODEL_SIGNALS = True

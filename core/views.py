@@ -60,7 +60,7 @@ def search_results(request):
     comp_num = 0
     for competence in competencies:
         if competence.person == comp_user:
-            comp_list_filer.append(competence.title_of_competence)
+            comp_list_filer.append((competence.title_of_competence, competence.level_of_competence))
             comp_num = comp_num + 1
 
     q = request.GET.get('q')

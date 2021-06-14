@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 from .models import Competence
 
-uri = "neo4j://localhost:7687"
+uri = "neo4j://localhost:11003"
 driver = GraphDatabase.driver(uri, auth=("sofiiapotapova", "1234"))
 
 
@@ -28,21 +28,28 @@ def graph_add(info):
 
 
 def get_percent(comp_list_filter, comp_num, vacancy):
-    coinc = 0
+    coincidence = 0
+    percent = 0
+    level = 0
     vac_competencies = []
     with driver.session() as session:
-        result = session.run("MATCH (:NeoVacancy {name: $vacancy})-[:REQUIRES]->(competence:NeoCompetence) RETURN competence.name AS comp", vacancy = vacancy)
+        result = session.run("MATCH (:NeoVacancy {name: $vacancy})-[:REQUIRES]->(competence:NeoCompetence) RETURN "
+                             "competence.name AS comp", vacancy = vacancy)
         for record in result:
             vac_competencies.append(record['comp'])
 
         for comp in comp_list_filter:
-            if comp in vac_competencies:
-                coinc = coinc + 1
-                print(coinc)
-        percent = coinc/comp_num
-        print(percent)
-        per = round(percent, 2)
-        return per*100
+            if comp[0] in vac_competencies:
+                coincidence = coincidence + 1
+                level = level + int(comp[1])
+        if coincidence == 0:
+            return None
+        else:
+            coef = (level/coincidence)/100
+            percent = coincidence/comp_num
+            result = coef + percent
+            per = round(result, 2)
+            return per*100
 
 
 driver.close()

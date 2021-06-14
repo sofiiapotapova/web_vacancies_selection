@@ -71,7 +71,7 @@ class Vacancy(models.Model):
     city_of_vacancy = models.CharField('City', max_length=25)
     salary = models.IntegerField('Salary')
     web_site = models.CharField('WebSite', max_length=20)
-    percent = models.IntegerField('Percentage', default=0)
+    percent = models.IntegerField('Percentage', null=True)
 
     objects = VacancyManager()
 
