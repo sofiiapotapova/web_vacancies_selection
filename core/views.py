@@ -13,7 +13,8 @@ from .forms import CompetenceForm
 
 
 def index(request):
-    vacancies = Vacancy.objects.all()
+    vacancies = Vacancy.objects.order_by('-percent').all()
+    # vacancies.sort({"percent": {"order": "desc"}})
     competencies = Competence.objects.all()
 
     return render(request, 'core/index.html',
@@ -79,7 +80,7 @@ def search_results(request):
             if vacancy_dict['salary'] == 0:
                 vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
                                                          vacancy_dict['city'],
-                                                         None, vacancy_dict['webSite'], percent)
+                                                         0, vacancy_dict['webSite'], percent)
             else:
                 vacancy = Vacancy.objects.create_vacancy(vacancy_dict['name'], vacancy_dict['description'],
                                                          vacancy_dict['city'],
